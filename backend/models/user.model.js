@@ -21,6 +21,10 @@ const userSchema = new Schema({
         enum: ['student', 'librarian'],
         default: 'student'
     },
+    isVerified: {
+        type: Boolean,
+        default: false
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);
