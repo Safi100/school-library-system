@@ -1,0 +1,15 @@
+.auth_bg{
+    height: 100vh;
+    background: linear-gradient(to left, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/auth_bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.auth_bg form{
+    width: 90%;
+    max-width: 350px;
+    border-radius: 10px;
+}
