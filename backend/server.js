@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv').config();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const authRoutes = require('./routes/auth.route');
 
@@ -9,6 +10,11 @@ const app = express();
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: '*',
+    credentials: true,
+}));
 
 // conntect the database
 const DB_URL = process.env.DATABASE
