@@ -4,8 +4,6 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const authRoutes = require('./routes/auth.route');
-
 const app = express();
 
 app.use(morgan('dev'));
@@ -27,6 +25,10 @@ app.get('/', (req, res) => {
 });
 
 // routes
+const authRoutes = require('./routes/auth.route');
+const userRoutes = require('./routes/user.route');
+
+app.use('/api/user/', userRoutes);
 app.use('/api/auth/', authRoutes);
 
 app.use((err, req, res, next) => {
