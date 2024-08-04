@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import axios from 'axios';
 
@@ -14,11 +14,22 @@ const HomePage = lazy(() => import('./pages/home/Home'));
 const NotFound = lazy(() => import('./pages/notFound/NotFound'));
 const UserProfile = lazy(() => import('./pages/userProfile/UserProfile'));
 
+
 function App() {
+  const location = useLocation();
+  const excludedPaths = ['/login', '/register', '/chat', '/forgot-password', '/reset-password', '/verify-email', '/verify-email'];
+  const [showNavbar, setShowNavbar] = useState(true);
+  
+  useEffect(() => {
+    // Hide Navbar on Login and Register routes
+    const shouldShowNavbar = !excludedPaths.some((path) => location.pathname.includes(path));
+    setShowNavbar(shouldShowNavbar);
+
+  }, [location]);
+
   return (
-    <Router>
       <Suspense>
-        <NavigationBar />
+        {showNavbar && <NavigationBar />}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -27,7 +38,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
-    </Router>
   );
 }
 
