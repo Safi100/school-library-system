@@ -76,3 +76,43 @@ module.exports.register = async (req, res, next) => {
         next(e);
     }
 }
+module.exports.sendVerificationEmail = async (req, res, next) => {
+    try{
+        const user = await User.findById(req.user.id);
+        if(!user) throw new HandleError('User not found.', 404);
+        if(user.isVerified) throw new HandleError('Email already verified.', 400);
+        // send email to verify email
+        let token = await EmailToken.findOne({ userId: user._id });
+        // generate new token 
+        if(token) await EmailToken.deleteMany({ userId: user._id});
+        
+        const verifyToken = crypto.randomBytes(32).toString("hex");
+        const hashedToken = await bcrypt.hash(verifyToken, 10)
+        await new EmailToken({
+            userId: user._id,
+            token: hashedToken,
+        }).save();
+        const url = `${process.env.BASE_URL}/verify-email/${user.id}/${verifyToken}`;
+        await sendEmail(user.email, "Verify Your Email Address", `
+            <p>Dear User,</p>
+            <p>Thank you for registering. To complete your registration and activate your account, please verify your email address by clicking the link below:</p>
+            <p><a href="${url}">Verify Your Email</a></p>
+            <p><i>Note: This link will expire in 1 hour.</i></p>
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:gamingplatform2002@gmail.com">gamingplatform2002@gmail.com</a>.</p>
+            <p>Best regards,<br>Library Team</p>
+        `);
+        res.send({message: 'Verification email sent successfully.' });
+    }catch(e){
+        console.log(e);
+        next(e);
+    }
+}
+module.exports.Logout = async (req, res, next) => {
+    try{
+        await res.clearCookie('access_token');
+        await res.clearCookie('c_user');
+        res.status(200).send({success: true})
+    }catch (e) {
+        next(e);
+    }
+}
