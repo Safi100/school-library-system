@@ -33,10 +33,8 @@ const UserProfile = () => {
                                 {user.email}
                                 <span className={`${user.isVerified ? 'verified' : 'unverified'}`}>{`${user.isVerified ? 'Verified' : 'Unverified'}`}</span>
                             </h5>
-                            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <a href="#" className="btn btn-primary">Go somewhere</a>
                         </div>
-                        <div className="card-footer text-muted">
+                        <div className="card-footer text-white">
                             Joined on {new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                         </div>
                     </div>
