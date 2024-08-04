@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const User = require('../models/user.model');
 const HandleError = require('../utils/HandleError');
 const jwt = require('jsonwebtoken');
 const {sendEmail} = require('../utils/SendEmail');
+const EmailToken = require('../models/emailToken.model');
+
 module.exports.login = async (req, res, next) => {
     try{
         const email = req.body.email.toLowerCase().trim();
@@ -51,13 +54,23 @@ module.exports.register = async (req, res, next) => {
             password: hashedPass
         })
         await user.save();
-        // todo : send email to verify email
-        // sendEmail(user.email, 'Verify your email', `
-        //     <h1>Verify your email</h1>
-        //     <p>Click the following link to verify your email:</p>
-        //     <a href="http://localhost:3000/verify/${user._id}">Verify Email</a>
-        // `)
-        res.json(user);
+        // send email to verify email
+        const verifyToken = crypto.randomBytes(32).toString("hex");
+        const hashedToken = await bcrypt.hash(verifyToken, 10)
+        await new EmailToken({
+            userId: user._id,
+            token: hashedToken,
+        }).save();
+        const url = `${process.env.BASE_URL}/verify-email/${user.id}/${verifyToken}`;
+        await sendEmail(user.email, "Verify Your Email Address", `
+            <p>Dear User,</p>
+            <p>Thank you for registering. To complete your registration and activate your account, please verify your email address by clicking the link below:</p>
+            <p><a href="${url}">Verify Your Email</a></p>
+            <p><i>Note: This link will expire in 1 hour.</i></p>
+            <p>If you have any questions or need assistance, please don't hesitate to contact our support team at <a href="mailto:gamingplatform2002@gmail.com">gamingplatform2002@gmail.com</a>.</p>
+            <p>Best regards,<br>Library Team</p>
+        `);
+        res.send({message: 'Registration successful. Please check your email for verification, check spam folder also.' });
     }catch(e){
         console.log(e);
         next(e);
