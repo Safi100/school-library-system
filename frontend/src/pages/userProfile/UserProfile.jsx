@@ -4,12 +4,11 @@ import  Axios from 'axios';
 import './userProfile.css';
 
 const UserProfile = () => {
-    const { userID } = useParams();
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        Axios.get(`http://localhost:8000/api/user/profile/${userID}`)
+        Axios.get(`http://localhost:8000/api/user/profile/`)
         .then(res => {
             console.log(res.data);
             setLoading(false);
@@ -20,7 +19,7 @@ const UserProfile = () => {
             setError(err.response.data);
             console.log(err);
         })
-    }, [userID])
+    }, [])
     return (
         <div>
             <div className="wrapper py-4">
