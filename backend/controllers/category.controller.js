@@ -14,3 +14,13 @@ module.exports.newCategory = async (req, res, next) => {
         next(err);
     }
 }
+
+module.exports.getCategories = async (req, res, next) => {
+    try{
+        const categories = await Category.find();
+        res.status(200).json(categories);
+    }catch(err){
+        console.log(err);
+        next(err);
+    }
+}
