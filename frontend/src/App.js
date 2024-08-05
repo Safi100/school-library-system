@@ -13,7 +13,7 @@ const VerifyEmailPage = lazy(() => import('./pages/auth/VerifyEmail'))
 const HomePage = lazy(() => import('./pages/home/Home'));
 const NotFound = lazy(() => import('./pages/notFound/NotFound'));
 const UserProfile = lazy(() => import('./pages/userProfile/UserProfile'));
-
+const CategoryPage = lazy(() => import('./pages/category/Category'));
 
 function App() {
   const location = useLocation();
@@ -35,6 +35,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<UserProfile />} />
+          <Route path="/categories" element={<CategoryPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
