@@ -1,0 +1,11 @@
+.categories_container{
+    display: flex;
+    gap: 5px;
+}
+.category{
+    display: inline-block;
+    color: black;
+    padding: 2px 5px;
+    border-radius: 5px;
+    background: #fff;
+}
