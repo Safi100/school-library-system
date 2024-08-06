@@ -14,6 +14,8 @@ const HomePage = lazy(() => import('./pages/home/Home'));
 const NotFound = lazy(() => import('./pages/notFound/NotFound'));
 const UserProfile = lazy(() => import('./pages/userProfile/UserProfile'));
 const CategoryPage = lazy(() => import('./pages/category/Category'));
+const StudentPage = lazy(() => import('./pages/student/Student'));
+const NewStudentPage = lazy(() => import('./pages/student/NewStudent'));
 
 function App() {
   const location = useLocation();
@@ -36,6 +38,8 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/categories" element={<CategoryPage />} />
+          <Route path="/students" element={<StudentPage />} />
+          <Route path="/add-student" element={<NewStudentPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
