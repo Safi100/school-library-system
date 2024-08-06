@@ -21,11 +21,11 @@ module.exports.addBook = async (req, res, next) => {
         if(categories.length === 0) throw new HandleError('At least one category is required', 400);
         // Create a new book
         const newBook = new Book({
-            title,
-            author,
+            title: title.trim(),
+            author: author.trim(),
             publication_year,
-            description,
-            language,
+            description: description.trim(),
+            language: language.trim(),
             pages,
             categories
         });
