@@ -16,6 +16,8 @@ const UserProfile = lazy(() => import('./pages/userProfile/UserProfile'));
 const CategoryPage = lazy(() => import('./pages/category/Category'));
 const StudentPage = lazy(() => import('./pages/student/Student'));
 const NewStudentPage = lazy(() => import('./pages/student/NewStudent'));
+const NewBookPage = lazy(() => import('./pages/book/NewBook'));
+const BooksPage = lazy(() => import('./pages/book/Books'));
 
 function App() {
   const location = useLocation();
@@ -40,6 +42,8 @@ function App() {
           <Route path="/categories" element={<CategoryPage />} />
           <Route path="/students" element={<StudentPage />} />
           <Route path="/add-student" element={<NewStudentPage />} />
+          <Route path="/add-book" element={<NewBookPage />} />
+          <Route path="/books/:category" element={<BooksPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
