@@ -21,7 +21,7 @@ const Student = () => {
   return (
     <div className='wrapper py-4'>
         {students.length < 1 ? <h2 className='text-danger'>No students yet...</h2> :
-        <div>
+        <div className='d-flex flex-column gap-4'>
             {students.map(student => (
             <div className="card text-white bg-dark student_card">
                 <div className="card-header fs-3">{student.name}</div>
