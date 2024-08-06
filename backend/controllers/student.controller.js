@@ -1,8 +1,15 @@
 const Student = require('../models/student.model');
+const HandleError = require('../utils/HandleError');
 
 module.exports.addStudent = async (req, res, next) => {
     try{
         const {name, phone_number, gender, email} = req.body;
+        // validation
+        const name_pattern = /^[A-Za-z\s]+$/u
+        if (!name_pattern.test(name)) throw new HandleError(`Only characters are allowed in name.`, 400);
+        const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        if (!emailPattern.test(email)) throw new HandleError(`Invalid email address.`, 400);
+        // New student
         const student = new Student({
             name: name.trim(),
             gender: gender.trim(),
