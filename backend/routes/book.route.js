@@ -4,6 +4,6 @@ const router = express.Router({mergeParams: true})
 const {isLoggedIn} = require('../middleware')
 
 router.post('/add-book', isLoggedIn, addBook)
-router.get('/:id', isLoggedIn, getBooksByCategory)
+router.get('/:category', isLoggedIn, getBooksByCategory)
 
 module.exports = router
