@@ -21,14 +21,14 @@ const Student = () => {
   return (
     <div className='wrapper py-4'>
         {students.length < 1 ? <h2 className='text-danger'>No students yet...</h2> :
-        <div className='d-flex flex-column gap-4'>
+        <div className='row gap-4'>
             {students.map(student => (
-            <div className="card text-white bg-dark student_card">
+            <div className="card text-white bg-dark student_card col-6">
                 <div className="card-header fs-3">{student.name}</div>
                 <div className="card-body">
-                    <h5 className="card-title">{student.email}</h5>
-                    <h5 className="card-title">{student.gender}</h5>
-                    <h5 className="card-title">{student.phone_number}</h5>
+                    <h5 className="card-title mb-3">{student.email}</h5>
+                    <h5 className="card-title mb-3">{student.gender}</h5>
+                    <h5 className="card-title mb-3">{student.phone_number}</h5>
                 </div>
                 <div className="card-footer text-white">
                     Added on {new Date(student.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
