@@ -31,11 +31,13 @@ const authRoutes = require('./routes/auth.route');
 const userRoutes = require('./routes/user.route');
 const categoryRoutes = require('./routes/category.route');
 const studentRoutes = require('./routes/student.route');
+const bookRoutes = require('./routes/book.route');
 
 app.use('/api/user/', userRoutes);
 app.use('/api/auth/', authRoutes);
 app.use('/api/category/', categoryRoutes);
 app.use('/api/student/', studentRoutes);
+app.use('/api/book/', bookRoutes);
 
 app.use((err, req, res, next) => {
     if(!err.message) err.message = 'Internal Server Error'
