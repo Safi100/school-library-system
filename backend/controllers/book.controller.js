@@ -3,7 +3,7 @@ const HandleError = require('../utils/HandleError');
 
 module.exports.getBooksByCategory = async (req, res, next) => {
     try{
-        const category = req.params.category;
+        const {category} = req.query;
         const books = await Book.find({ categories: { $in: [category] } }).populate('categories');
         res.status(200).json(books);
     }catch(error){
