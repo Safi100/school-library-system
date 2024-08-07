@@ -49,6 +49,8 @@ const NewBook = () => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.stopPropagation();
+      setValidated(true);
+      return;
     }
     setValidated(true);
     setError('');
@@ -72,7 +74,7 @@ const NewBook = () => {
       })
       .catch(error => {
         setLoading(false);
-        setError(error.response.data.message || 'An error occurred');
+        setError(error.response.data);
       });
   };
 
@@ -149,7 +151,6 @@ const NewBook = () => {
             options={categories.map(category => ({ value: category._id, label: `${category.name}` }))}
             onChange={handleCategoryChange}
             value={categories.filter(category => formData.categories.includes(category._id)).map(category => ({ value: category._id, label: category.name }))}
-            required
             className="basic-multi-select"
             classNamePrefix="select"
           />
