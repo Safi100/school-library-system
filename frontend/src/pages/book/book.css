@@ -1,6 +1,6 @@
 .categories_container{
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
 .category{
     display: inline-block;
@@ -8,4 +8,5 @@
     padding: 2px 5px;
     border-radius: 5px;
     background: #fff;
+    text-decoration: none;
 }

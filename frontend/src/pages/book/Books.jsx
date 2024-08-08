@@ -39,7 +39,7 @@ const Book = () => {
                 <p className='mb-2'>Categories:</p>
                 <div className='categories_container'>
                   {book.categories.map(category => (
-                    <span className='category' key={category._id}>{category.name} </span>
+                    <a href={`/books/${category.name}`} className='category' key={category._id}>{category.name} </a>
                   ))}
                 </div>
               </div>
