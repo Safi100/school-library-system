@@ -27,6 +27,7 @@ const Book = () => {
     <div className='wrapper py-4'>
       {error ? <h2 className='text-danger'>{error}</h2> :
       <div className='row gap-4'>
+        {books.length === 0 && <h2 className="text-danger">No books in this category yet...</h2>}
         {books.map(book => (
           <div key={book._id} className='card col col-4 mb-3 bg-dark text-white'>
             <div className='card-body'>
