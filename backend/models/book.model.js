@@ -29,6 +29,11 @@ const bookSchema = new Schema({
         ref: 'Category',
         required: [true, 'Category is required'],
     }],
+    borrowed_by: {
+        type: Schema.Types.ObjectId,
+        ref: 'Student',
+        default: null
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('Book', bookSchema)
