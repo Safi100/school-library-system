@@ -21,7 +21,12 @@ const studentSchema = new Shcema({
         type: String,
         enum: ['Male', 'Female'],
         required: [true, 'Gender is required'],
-    }
+    },
+    borrowed_books: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book',
+        unique: true,
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Student', studentSchema);
