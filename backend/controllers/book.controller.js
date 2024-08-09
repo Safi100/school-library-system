@@ -7,7 +7,10 @@ module.exports.getBooksByCategory = async (req, res, next) => {
         const {category} = req.params;
         const cat = await Category.findOne({ name: category }).select('_id');
         if(!cat) throw new HandleError('Category not found', 404);
-        const books = await Book.find({ categories: { $in: [cat._id] } }).populate('categories');
+        const books = await Book.find({
+            categories: { $in: [cat._id] },
+            borrowed_by: { $eq: null }
+        }).populate('categories');        
         res.status(200).json(books);
     }catch(error){
         console.log(error);
