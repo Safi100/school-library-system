@@ -25,7 +25,6 @@ const studentSchema = new Shcema({
     borrowed_books: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
-        unique: true,
     }]
 }, { timestamps: true });
 
