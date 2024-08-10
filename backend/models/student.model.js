@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const Shcema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-const studentSchema = new Shcema({
+const studentSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required'],
@@ -25,6 +25,11 @@ const studentSchema = new Shcema({
     borrowed_books: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book',
+    }],
+    subscription_fees: [{
+        type: Schema.Types.ObjectId,
+        ref: 'SubscriptionFees',
+        required: true,
     }]
 }, { timestamps: true });
 
