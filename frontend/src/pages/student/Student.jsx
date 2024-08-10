@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import Axios from 'axios'
+import StudentCard from '../../components/StudentCard'
 import './student.css'
 
 const Student = () => {
@@ -11,6 +12,8 @@ const Student = () => {
      .then(res => {
         setStudents(res.data);
         setLoading(false);
+        console.log(res.data);
+        
     })
     .catch(error => {
         setLoading(false);
@@ -23,17 +26,7 @@ const Student = () => {
         {students.length < 1 ? <h2 className='text-danger'>No students yet...</h2> :
         <div className='row gap-4'>
             {students.map(student => (
-            <div className="card text-white bg-dark student_card col-6">
-                <div className="card-header fs-3">{student.name}</div>
-                <div className="card-body">
-                    <h5 className="card-title mb-3">{student.email}</h5>
-                    <h5 className="card-title mb-3">{student.gender}</h5>
-                    <h5 className="card-title mb-3">{student.phone_number}</h5>
-                </div>
-                <div className="card-footer text-white">
-                    Added on {new Date(student.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
-                </div>
-            </div>
+                <StudentCard student={student} key={student._id} />
             ))}
         </div>
         }
