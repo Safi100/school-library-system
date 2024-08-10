@@ -18,7 +18,7 @@ module.exports.lendBook = async (req, res, next) => {
         book.borrowed_by = student._id;
         student.borrowed_books.push(book._id);
         const newBorrowRecord = new BorrowBooks({
-            bookId: book._id, 
+            book: book._id, 
             borrower: student._id
         });
         await book.save();
