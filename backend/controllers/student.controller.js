@@ -26,7 +26,19 @@ module.exports.addStudent = async (req, res, next) => {
 
 module.exports.getStudents = async (req, res, next) => {
     try{
-        const students = await Student.find().populate({path: 'subscription_fees', select: ['amount', 'payment_date'] });
+        let students = await Student.find().populate({path: 'subscription_fees', select: ['amount', 'payment_date'] });
+        students = students.map(student => {
+            const lastPaidDate = new Date(student.subscription_fees[student.subscription_fees.length - 1]?.payment_date);
+            const currentDate = new Date();
+            const diffTime = Math.abs(currentDate - lastPaidDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            const delayDays = diffDays > 30 ? diffDays - 30 : null;
+            return {
+                ...student._doc,
+                warning: diffDays > 30,
+                delay_days: delayDays
+            };
+        })
         res.status(200).json(students);
     }catch(err){
         console.log(err);
