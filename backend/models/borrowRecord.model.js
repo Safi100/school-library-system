@@ -16,10 +16,6 @@ const BorrowRecordSchema = new Schema({
     borrowDate: {
         type: Date,
         default: new Date()
-    },
-    returnDate: {
-        type: Date,
-        default: null
     }
 })
 
