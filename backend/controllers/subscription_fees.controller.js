@@ -6,6 +6,7 @@ module.exports.pay_fees = async (req, res, next) => {
     try{
         const {studentId} = req.params;
         const { amount } = req.body;
+        
         const student = await Student.findById(studentId).populate('subscription_fees');
         if(!student) throw new HandleError('Student not found', 404);
 
@@ -19,7 +20,7 @@ module.exports.pay_fees = async (req, res, next) => {
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             
             if (diffDays < 30) {
-                throw new HandleError('Cannot pay fees until 30 days have passed since the last payment', 400);
+                throw new HandleError(`Cannot pay fees until 30 days have passed since the last payment for ${student.name}`, 400);
             }
         }
         
