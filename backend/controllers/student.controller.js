@@ -26,7 +26,7 @@ module.exports.addStudent = async (req, res, next) => {
 
 module.exports.getStudents = async (req, res, next) => {
     try{
-        const students = await Student.find();
+        const students = await Student.find().populate({path: 'subscription_fees', select: ['amount', 'payment_date'] });
         res.status(200).json(students);
     }catch(err){
         console.log(err);
