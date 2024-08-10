@@ -21,14 +21,14 @@ const BorrowedBooks = () => {
     }, []);
 
   return (
-    <div className='wrapper py-4'>
+    <div className='wrapper py-4 row justify-content-center gap-3'>
       {error ? <h2 className='text-danger'>{error}</h2> :
-      <div className='row gap-4'>
+      <>
         {borrowedBooks.length === 0 && <h2 className="text-danger">No borrowed books yet...</h2>}
         {borrowedBooks.map(borrowed_book => (
           <BorrowRecordCard borrowed_book={borrowed_book} key={borrowed_book._id} />
         ))}
-      </div>
+      </>
       }
     </div>
   )

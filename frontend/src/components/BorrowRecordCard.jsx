@@ -2,7 +2,7 @@ import Warning from '../assets/warning.png';
 
 const BorrowRecordCard = ({borrowed_book}) => {
   return (
-    <div className='card col-4 p-0 mb-3'>
+    <div className='card col-12 col-lg-4 p-0 mb-3'>
     <div className='card-header fs-4'>{borrowed_book.book.title}</div>
     <div className='card-body m-0'>
       <h5>Borrowed by:</h5>
