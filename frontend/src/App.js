@@ -20,6 +20,7 @@ const NewBookPage = lazy(() => import('./pages/book/NewBook'));
 const BooksPage = lazy(() => import('./pages/book/Books'));
 const LendBookPage = lazy(() => import('./pages/borrow/LendBook'));
 const BorrowedBooks = lazy(() => import('./pages/borrow/BorrowedBooks'));
+const PayFeesPage = lazy(() => import('./pages/fees_sub/PayFees'));
 
 function App() {
   const location = useLocation();
@@ -48,6 +49,7 @@ function App() {
           <Route path="/lend-book" element={<LendBookPage />} />
           <Route path="/borrowed-books" element={<BorrowedBooks />} />
           <Route path="/books/:category" element={<BooksPage />} />
+          <Route path="/pay-fees" element={<PayFeesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
