@@ -13,14 +13,18 @@ const NavigationBar = () => {
           <Nav className="me-auto">
             <Nav.Link href="/add-book">Add Book</Nav.Link>
             <Nav.Link href="/add-student">Add Student</Nav.Link>
+            <Nav.Link href="/lend-book">Lend Book</Nav.Link>
+            <Nav.Link href="/pay-fees">Pay Fees</Nav.Link>
+
             <Nav.Link href="/students">Sutdents</Nav.Link>
             <Nav.Link href="/categories">Categories</Nav.Link>
+            <Nav.Link href="/borrowed-books">Borrowed Books</Nav.Link>
           </Nav>
           <Nav>
           <NavDropdown title={`Profile`} id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="">Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
