@@ -31,6 +31,16 @@ module.exports.getStudents = async (req, res, next) => {
     }catch(err){
         console.log(err);
         next(err);
+    }
+}
+
+module.exports.getStudentsName = async (req, res, next) => {
+    try{
+        const students = await Student.find().select('name');
+        res.status(200).json(students);
+    }catch(err){
+        console.log(err);
+        next(err);
         
     }
 }
