@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const paymentSchema = new Schema({
+const subscription_feesSchema = new Schema({
     amount: {
         type: Number,
         required: [true, 'Payment amount is required'],
@@ -16,6 +16,6 @@ const paymentSchema = new Schema({
         ref: 'Student',
         required: true,
     },
-}, { timestamps: true });
+});
 
-module.exports = mongoose.model('Payment', paymentSchema);
+module.exports = mongoose.model('SubscriptionFees', subscription_feesSchema);
