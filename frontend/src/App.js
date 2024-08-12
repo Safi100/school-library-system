@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 axios.defaults.withCredentials = true;
@@ -24,6 +25,7 @@ const PayFeesPage = lazy(() => import('./pages/fees_sub/PayFees'));
 
 function App() {
   const location = useLocation();
+  const navigate = useNavigate();
   const excludedPaths = ['/login', '/register', '/chat', '/forgot-password', '/reset-password', '/verify-email', '/verify-email'];
   const [showNavbar, setShowNavbar] = useState(true);
   
@@ -31,8 +33,15 @@ function App() {
     // Hide Navbar on Login and Register routes
     const shouldShowNavbar = !excludedPaths.some((path) => location.pathname.includes(path));
     setShowNavbar(shouldShowNavbar);
-
   }, [location]);
+
+
+  useEffect(() => {
+    const userCookie = Cookies.get('c_user');
+    if (!userCookie) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   return (
       <Suspense>
