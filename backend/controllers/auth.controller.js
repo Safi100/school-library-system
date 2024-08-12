@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const User = require('../models/user.model');
@@ -107,6 +108,28 @@ module.exports.sendVerificationEmail = async (req, res, next) => {
         next(e);
     }
 }
+module.exports.verifyEmail = async (req, res, next) => {
+    try {
+        const { id, token } = req.params;
+        console.log(req.params);
+        
+        if(!mongoose.Types.ObjectId.isValid(id)) throw new HandleError(`Invalid link`, 400);
+        // handle error if user already verified and token is not valid
+        const user = await User.findById(id);
+        if (!user || user.isVerified) throw new HandleError(user ? `Email already verified` : `Invalid link`, 400);
+        const EmailVerifyToken = await EmailToken.findOne({ userId: id });
+        if (!EmailVerifyToken) throw new HandleError(`Invalid link`, 400);
+        const match = await bcrypt.compare(token, EmailVerifyToken.token);
+        if(!match) throw new HandleError(`Invalid link`, 400);
+        // set user to verified
+        await User.updateOne({ _id: user._id }, { isVerified: true });
+        // delete email verification token after use it
+        await EmailToken.deleteOne({ userId: id });
+        res.status(200).send({ message: 'Email verified successfully.' });
+    } catch (e) {
+        next(e);
+    }
+};
 module.exports.Logout = async (req, res, next) => {
     try{
         await res.clearCookie('access_token');
