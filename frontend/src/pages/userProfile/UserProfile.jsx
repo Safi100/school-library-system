@@ -6,12 +6,12 @@ import './userProfile.css';
 const UserProfile = () => {
     const [user, setUser] = useState({});
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(true);
+    const [successMessage, setSuccessMessage] = useState(false);
+    const [postError, setPostError] = useState(false);
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         Axios.get(`http://localhost:8000/api/user/profile/`)
         .then(res => {
-            console.log(res.data);
-            setLoading(false);
             setUser(res.data);
         })
         .catch(err => {
@@ -20,6 +20,22 @@ const UserProfile = () => {
             console.log(err);
         })
     }, [])
+    const sendVerifyEmail = () => {
+        setPostError('');
+        setSuccessMessage('');
+        setLoading(true);
+        Axios.post(`http://localhost:8000/api/auth/send-verification-email`)
+       .then(res => {
+        console.log(res.data);
+        setLoading(false);
+        setSuccessMessage(res.data.message);
+       })
+       .catch(err => {
+        setLoading(false);
+        console.log(err)
+        setPostError(err.response.data);
+    });
+    }
     return (
         <div>
             <div className="wrapper py-4">
@@ -30,13 +46,16 @@ const UserProfile = () => {
                         <div className="card-body">
                             <h5 className="card-title">
                                 {user.email}
-                                <span className={`${user.isVerified ? 'verified' : 'unverified'}`}>{`${user.isVerified ? 'Verified' : 'Unverified'}`}</span>
+                                <span onClick={sendVerifyEmail} className={`verify_btn ${user.isVerified ? 'verified' : 'unverified'}`}>{`${user.isVerified ? 'Verified' : 'Unverified'}`}</span>
                             </h5>
                         </div>
                         <div className="card-footer text-white">
                             Joined on {new Date(user.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
                         </div>
                     </div>
+                    {loading && <p className='my-4'>Loading...</p>  }
+                    {successMessage && <p className='my-4 text-success'>{successMessage}</p>}
+                    {postError && <p className='my-4 text-danger'>{postError}</p>}
                 </>}
             </div>
         </div>

@@ -1,18 +1,18 @@
-.verified{
-    background: #72e29f47;
-    color: #3ad637;
-    display: inline-block;
+.verify_btn{
+    cursor: pointer;
     margin-left: 10px;
     border-radius: 20px;
     padding: 2px 5px;
     font-size: 13px;
 }
+.verified{
+    background: #72e29f47;
+    color: #3ad637;
+    display: inline-block;
+}
 .unverified{
     background: #dd272747;
     color: #ea5e5e;
     display: inline-block;
-    margin-left: 10px;
-    border-radius: 20px;
-    padding: 2px 5px;
-    font-size: 13px;
+
 }
