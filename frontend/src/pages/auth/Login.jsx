@@ -75,7 +75,6 @@ const Login = () => {
           <Form.Control.Feedback type='invalid'>Enter a six length password.</Form.Control.Feedback>
         </Form.Group>
         {error && <p className='text-danger'>{error}</p>}
-        <a className='d-block mb-3' href='/forgot-password'>Forgot Password?</a>
         <button className={`btn btn-success mb-3 ${loading && 'disabled'}`} type='submit'>
           {loading ? <span><Spinner animation='border' size='sm'></Spinner> loading...</span> : 'Login'}
         </button>
