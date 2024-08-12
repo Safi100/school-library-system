@@ -14,7 +14,7 @@ const Home = () => {
     <div className='wrapper py-4'>
       <div className="row gap-4">
         {categories.map(category => (
-          <a href={`/books/${category.name}`} key={category.id} className='card col col-3 mb-3'>
+          <a href={`/books/${category.name}`} key={category._id} className='card col col-3 mb-3'>
             <div className='card-body'>
               <h5 className='card-title'>{category.name}</h5>
               <p className='card-text'>{category.description}</p>
